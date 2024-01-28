@@ -16,7 +16,7 @@ Gotty-Remake transforms your command-line tools into interactive web application
    - Grants executable permissions to the script.
 
 3. **Expose Port:**
-   - Exposes port 8080 to make the web interface accessible.
+   - Exposes port 9090 to make the web interface accessible.
 
 4. **Command Execution:**
    - Sets the default command to run the `/run_gotty.sh` script when the container starts.
@@ -38,11 +38,11 @@ To get started with Gotty-Remake, follow these simple steps:
 
 3. **Run the Container:**
    ```bash
-   docker run -p 8080:8080 gotty-remake
+   docker run -p 9090:9090 gotty-remake
    ```
 
 4. **Access the Web Interface:**
-   Open your browser and go to [http://localhost:8080](http://localhost:8080) to interact with your command-line tools in a fun and interactive way!
+   Open your browser and go to [http://localhost:9090](http://localhost:8080) to interact with your command-line tools in a fun and interactive way!
 
 ## Contribute and Have Fun! 🎉
 
