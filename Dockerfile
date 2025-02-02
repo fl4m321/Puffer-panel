@@ -1,23 +1,25 @@
 FROM ubuntu:20.04
 LABEL maintainer="wingnut0310 <wingnut0310@gmail.com>"
 
+# Set locale environment variables
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
-ENV GOTTY_TAG_VER v1.0.1
 
-RUN apt-get -y update && \
-    apt-get install -y curl && \
-    curl -sLk https://github.com/yudai/gotty/releases/download/${GOTTY_TAG_VER}/gotty_linux_amd64.tar.gz \
-    | tar xzC /usr/local/bin && \
-    apt-get purge --auto-remove -y curl && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists*
+# Install dependencies (curl) and gotty
+RUN apt-get update && apt-get install -y \
+    curl \
+    && curl -sLk https://github.com/yudai/gotty/releases/download/v1.0.1/gotty_linux_amd64.tar.gz \
+    | tar xzC /usr/local/bin \
+    && apt-get clean
 
+# Copy the run_gotty.sh script into the container
+COPY run_gotty.sh /run_gotty.sh
 
-COPY /run_gotty.sh /run_gotty.sh
+# Set proper permissions for the script
+RUN chmod +x /run_gotty.sh
 
-RUN chmod 744 /run_gotty.sh
-
+# Expose the port that gotty will use (9090)
 EXPOSE 9090
 
-CMD ["/bin/bash","/run_gotty.sh"]
+# Start the gotty server with the bash shell
+CMD ["/bin/bash", "/run_gotty.sh"]
