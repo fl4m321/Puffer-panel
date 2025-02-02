@@ -1,26 +1,28 @@
-# Dockerfile
+# Use an official Ubuntu base image
 FROM ubuntu:20.04
+
+# Set the maintainer label
 LABEL maintainer="wingnut0310 <wingnut0310@gmail.com>"
 
-# Set locale environment variables
+# Set up environment variables
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 
-# Install dependencies and Gotty
+# Install required dependencies for your service
 RUN apt-get update && apt-get install -y \
     curl \
-    && curl -sLk https://github.com/yudai/gotty/releases/download/v1.0.1/gotty_linux_amd64.tar.gz \
-    | tar xzC /usr/local/bin \
+    bash \
+    # Add any other dependencies you need, such as web server (nginx) or Wings dependencies
     && apt-get clean
 
-# Copy the gotty.sh script into the container
-COPY gotty.sh /gotty.sh
+# Copy any files needed for your application (replace these with your actual app files)
+COPY ./app /app
 
-# Set executable permission
-RUN chmod +x /gotty.sh
+# Set the working directory
+WORKDIR /app
 
-# Expose the port that gotty will use
-EXPOSE 9090
+# Expose the port that your app will run on (adjust this as necessary)
+EXPOSE 8080
 
-# Run the gotty script
-CMD ["/bin/bash", "/gotty.sh"]
+# Default command to run the service (replace this with your specific command)
+CMD ["bash"]
